@@ -1,54 +1,38 @@
-import { useEffect, useState, useRef } from "react"
-import { ITodo } from "../types/data"
-import {TodoList} from "./TodoList/TodoList"
+import { useState } from 'react';
+import { useAppDispatch } from '../hooks';
 
 
-const App: React.FC = () =>{
-    const [value, setValue] = useState('')
-    const [todos, setTodos] = useState<ITodo[]>([])
+import { addTodo } from '../store/todoSlice';
 
-    const inputRef = useRef<HTMLInputElement | null>(null)
 
-    const handleChange:React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setValue(e.target.value)
+import NewTodoForm from './NewTodoForm/NewTodoForm';
+import { TodoList } from './TodoList/TodoList';
+
+
+
+
+
+function App() {
+  const [text, setText] = useState('');
+  const dispatch = useAppDispatch();
+
+  const handleAction = () => {
+    if (text.trim().length) {
+      dispatch(addTodo(text));
+      setText('');
     }
-    
-    const handleKeyDown:React.KeyboardEventHandler<HTMLInputElement> = (e) =>{
-        if(e.key === 'Enter'){
-        addTodo()
-        }
-    }
+  }
 
-    const addTodo = () =>{
-        if (value){
-            setTodos([...todos , {
-                id: Date.now(),
-                title: value,
-                complete: false,
-               }]) 
-               setValue('')
-        }      
-    }
-
-    const removeTodo = (id:number):void => {
-        setTodos(todos.filter((el)=> el.id!== id))
-    }
-
-    const toggleTodo = (id:number):void =>{
-        setTodos(todos.map((el)=> el.id !== id ? el : {...el, complete: !el.complete} ))
-    }
-
-    useEffect(()=>{
-        if(inputRef.current) inputRef.current.focus()
-    },[])
-    return (
-        <div>
-            <div>
-                <input type="text" value={value} onChange={handleChange} onKeyDown={handleKeyDown} ref={inputRef}/>
-                <button onClick={addTodo}>add</button>
-            </div>
-            <TodoList items={todos}  removeTodo={removeTodo} toggleTodo={toggleTodo}/>
-        </div>
-    )
+  return (
+    <div className='App'>
+      <NewTodoForm
+        value={text}
+        updateText={setText}
+        handleAction={handleAction}
+      />
+      <TodoList />
+    </div>
+  );
 }
-export {App}
+
+export default App;
