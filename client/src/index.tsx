@@ -1,17 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import axios from "axios";
+import App from "./components/App";
 
-import App from './components/App';
+import store from "./store";
 
-import store from './store';
+axios.defaults.baseURL = "http://localhost:3001";
+// axios.defaults.withCredentials = true;
+
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <Provider store={store}>
     <App />
-  </Provider>
+  </Provider>,
 );
-
-

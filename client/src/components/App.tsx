@@ -1,30 +1,23 @@
-import { useState } from 'react';
-import { useAppDispatch } from '../hooks';
+import { useState } from "react";
+import { useAppDispatch } from "../hooks";
 
-
-import { addTodo } from '../store/todoSlice';
-
-
-import NewTodoForm from './NewTodoForm/NewTodoForm';
-import { TodoList } from './TodoList/TodoList';
-
-
-
-
+import NewTodoForm from "./NewTodoForm/NewTodoForm";
+import { TodoList } from "./TodoList/TodoList";
+import { addTodoAsync } from "../thunks";
 
 function App() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const dispatch = useAppDispatch();
 
   const handleAction = () => {
     if (text.trim().length) {
-      dispatch(addTodo(text));
-      setText('');
+      dispatch(addTodoAsync(text));
+      setText("");
     }
-  }
+  };
 
   return (
-    <div className='App'>
+    <div className="App">
       <NewTodoForm
         value={text}
         updateText={setText}
