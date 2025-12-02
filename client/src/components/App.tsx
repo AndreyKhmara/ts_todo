@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch } from "../hooks";
 
 import NewTodoForm from "./NewTodoForm/NewTodoForm";
 import { TodoList } from "./TodoList/TodoList";
-import { addTodoAsync } from "../thunks";
+import { addTodoAsync, getTodoAsync } from "../thunks";
 
 function App() {
   const [text, setText] = useState("");
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getTodoAsync());
+  }, [dispatch]);
 
   const handleAction = () => {
     if (text.trim().length) {

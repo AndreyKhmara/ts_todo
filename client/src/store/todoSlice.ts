@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addTodoAsync } from "../thunks";
+import { addTodoAsync, getTodoAsync } from "../thunks";
 
 type Todo = {
   id: string;
@@ -27,9 +27,13 @@ const todoSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(addTodoAsync.fulfilled, (state, action) => {
-      state.list.push(action.payload);
-    });
+    builder
+      .addCase(getTodoAsync.fulfilled, (state, action) => {
+        state.list = action.payload;
+      })
+      .addCase(addTodoAsync.fulfilled, (state, action) => {
+        state.list.push(action.payload);
+      });
   },
 });
 
