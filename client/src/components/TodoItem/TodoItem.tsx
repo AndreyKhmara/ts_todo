@@ -1,24 +1,26 @@
-import { useAppDispatch } from '../../hooks';
-import { removeTodo, toggleComplete } from '../../store/todoSlice';
+import { useAppDispatch } from "../../hooks";
+import { toggleTodoAsync } from "../../thunks";
 
-
-interface TodoItemProps{
-  id: string;
+interface TodoItemProps {
+  id: number;
   title: string;
-  complete: boolean
+  complete: boolean;
 }
 
+const TodoItem: React.FC<TodoItemProps> = ({ id, title, complete }) => {
+  const dispatch = useAppDispatch();
 
-const TodoItem: React.FC<TodoItemProps> = ({id, title, complete}) => {
-  const dispatch = useAppDispatch()
-   
   return (
     <div>
-        <input type="checkbox" checked={complete} onChange={()=>dispatch(toggleComplete(id))}/>
-        <span>{title}</span>
-        <button onClick={()=>dispatch(removeTodo(id))}>x</button>    
+      <input
+        type="checkbox"
+        checked={complete}
+        onChange={() => dispatch(toggleTodoAsync({ id, complete: !complete }))}
+      />
+      <span>{title}</span>
+      <button onClick={() => console.log(id)}>x</button>
     </div>
-  )
-}
+  );
+};
 
-export {TodoItem}
+export { TodoItem };
