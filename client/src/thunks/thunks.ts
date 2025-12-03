@@ -30,6 +30,19 @@ export const toggleTodoAsync = createAsyncThunk(
   },
 );
 
+export const editTodoAsync = createAsyncThunk(
+  "todos/editTodoAsync",
+  async ({ id, title }: { id: number; title: string }) => {
+    const response = await axios.patch(`/todo/edit/${id}`, {
+      title,
+    });
+
+    if (statusIsOk(response.status)) {
+      return { id, title };
+    }
+  },
+);
+
 export const deleteTodoAsync = createAsyncThunk(
   "todos/deleteTodoAsync",
   async (id: number) => {

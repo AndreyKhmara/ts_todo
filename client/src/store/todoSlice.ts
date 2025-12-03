@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   addTodoAsync,
   deleteTodoAsync,
+  editTodoAsync,
   getTodoAsync,
   toggleTodoAsync,
 } from "../thunks";
@@ -41,6 +42,17 @@ const todoSlice = createSlice({
           return el;
         });
         state.list = toggleTodo;
+      })
+      .addCase(editTodoAsync.fulfilled, (state, action) => {
+        const { payload } = action;
+
+        const editTodo = state.list.map((el) => {
+          if (el.id === payload?.id) {
+            return { ...el, title: payload?.title };
+          }
+          return el;
+        });
+        state.list = editTodo;
       })
       .addCase(deleteTodoAsync.fulfilled, (state, action) => {
         const id = action.payload;
