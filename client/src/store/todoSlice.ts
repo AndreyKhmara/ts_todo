@@ -1,5 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addTodoAsync, getTodoAsync, toggleTodoAsync } from "../thunks";
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  addTodoAsync,
+  deleteTodoAsync,
+  getTodoAsync,
+  toggleTodoAsync,
+} from "../thunks";
 
 type Todo = {
   id: number;
@@ -17,15 +22,7 @@ const initialState: TodosState = {
 const todoSlice = createSlice({
   name: "todos",
   initialState,
-  reducers: {
-    // toggleComplete(state, action: PayloadAction<string>) {
-    //   const toggled = state.list.find((todo) => todo.id === action.payload);
-    //   if (toggled) toggled.complete = !toggled.complete;
-    // },
-    // removeTodo(state, action: PayloadAction<string>) {
-    //   state.list = state.list.filter((el) => el.id !== action.payload);
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getTodoAsync.fulfilled, (state, action) => {
@@ -43,11 +40,13 @@ const todoSlice = createSlice({
           }
           return el;
         });
-        // TODO Разобраться, почему не жмакается чекбокс
-        console.log(toggleTodo);
-        console.log(payload);
-
         state.list = toggleTodo;
+      })
+      .addCase(deleteTodoAsync.fulfilled, (state, action) => {
+        const id = action.payload;
+        const newState = state.list.filter((el) => el.id !== id);
+
+        state.list = newState;
       });
   },
 });

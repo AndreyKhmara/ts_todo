@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../hooks";
-import { toggleTodoAsync } from "../../thunks";
+import { deleteTodoAsync, toggleTodoAsync } from "../../thunks";
 
 interface TodoItemProps {
   id: number;
@@ -18,7 +18,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, title, complete }) => {
         onChange={() => dispatch(toggleTodoAsync({ id, complete: !complete }))}
       />
       <span>{title}</span>
-      <button onClick={() => console.log(id)}>x</button>
+      <button onClick={() => dispatch(deleteTodoAsync(id))}>x</button>
     </div>
   );
 };
