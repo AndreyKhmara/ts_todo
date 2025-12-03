@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppDispatch } from "../hooks";
 
-import NewTodoForm from "./NewTodoForm/NewTodoForm";
 import { TodoList } from "./TodoList/TodoList";
 import { addTodoAsync, getTodoAsync } from "../thunks";
+import { NewTodoForm } from "./NewTodoForm";
 
 function App() {
   const [text, setText] = useState("");
