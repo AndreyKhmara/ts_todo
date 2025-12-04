@@ -20,7 +20,7 @@ export const addTodoAsync = createAsyncThunk(
 export const toggleTodoAsync = createAsyncThunk(
   "todos/toggleTodoAsync",
   async ({ id, complete }: { id: number; complete: boolean }) => {
-    const response = await axios.patch(`/todo/completed/${id}`, {
+    const response = await axios.patch(`/todo/${id}`, {
       complete,
     });
 
@@ -33,7 +33,7 @@ export const toggleTodoAsync = createAsyncThunk(
 export const editTodoAsync = createAsyncThunk(
   "todos/editTodoAsync",
   async ({ id, title }: { id: number; title: string }) => {
-    const response = await axios.patch(`/todo/edit/${id}`, {
+    const response = await axios.patch(`/todo/${id}`, {
       title,
     });
 
