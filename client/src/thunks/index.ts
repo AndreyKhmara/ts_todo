@@ -1,1 +1,2 @@
-export * from "./thunks";
+export * from "./todoThunks";
+export * from "./userThunks";
