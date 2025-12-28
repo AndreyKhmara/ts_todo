@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserAsync, loginUserAsync } from "../thunks";
+import { getUserAsync, registerUserAsync, loginUserAsync } from "../thunks";
 
 interface User {
   login: number | null;
@@ -43,6 +43,21 @@ const userSlice = createSlice({
         state.isAuth = false;
       });
 
+    builder
+      .addCase(registerUserAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerUserAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isAuth = true;
+      })
+      .addCase(registerUserAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Ошибка авторизации";
+      });
     builder
       .addCase(loginUserAsync.pending, (state) => {
         state.loading = true;

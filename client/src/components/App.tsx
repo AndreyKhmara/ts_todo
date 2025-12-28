@@ -8,15 +8,15 @@ import { getUserAsync } from "../thunks";
 function App() {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getUserAsync());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getUserAsync());
+  // }, []);
 
   return (
     <div>
       <Routes>
         <Route path="/reg" element={<RegPage />} />
-        <Route path="/auth" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/todo" element={<TodoPage />} />
       </Routes>
     </div>
