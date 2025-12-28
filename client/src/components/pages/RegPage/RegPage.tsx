@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { loginUserAsync } from "../../../thunks";
+import { registerUserAsync } from "../../../thunks";
 import { useAppDispatch } from "../../../hooks";
 
 export const RegPage = () => {
@@ -10,7 +10,9 @@ export const RegPage = () => {
   const submitHandler = useCallback(() => {
     console.log({ loginValue, passwordValue });
     if (loginValue && passwordValue) {
-      dispatch(loginUserAsync({ login: loginValue, password: passwordValue }));
+      dispatch(
+        registerUserAsync({ login: loginValue, password: passwordValue }),
+      );
       setLoginValue("");
       setPasswordValue("");
     }
