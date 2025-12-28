@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import { useAppDispatch } from "../hooks";
 import { getUserAsync } from "../thunks";
+import { NavBar } from "./NavBar";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <div>
+      <NavBar />
       <Routes>
         <Route path="/reg" element={<RegPage />} />
         <Route path="/login" element={<LoginPage />} />
